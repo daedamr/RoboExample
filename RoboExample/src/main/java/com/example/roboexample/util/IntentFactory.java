@@ -6,13 +6,11 @@ import android.content.Intent;
 import com.example.roboexample.activity.DescriptionActivity;
 import com.example.roboexample.model.GoodLocation;
 
+import javax.inject.Inject;
+
 public class IntentFactory {
 
-    private Context context;
-
-    public IntentFactory(Context context) {
-        this.context = context;
-    }
+    @Inject private Context context;
 
     public Intent newDescriptionIntent() {
         return new Intent(context, DescriptionActivity.class);

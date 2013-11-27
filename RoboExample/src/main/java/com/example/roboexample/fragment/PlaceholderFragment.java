@@ -3,12 +3,8 @@ package com.example.roboexample.fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,14 +23,24 @@ import com.example.roboexample.util.IntentFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlaceholderFragment extends Fragment {
+import javax.inject.Inject;
 
-    private EditText locationDescription;
-    private Button locationSave;
-    private ListView locationsList;
-    private View emptyView;
-    private List<GoodLocation> locations;
-    private LocationsAdapter locationAdapter;
+import roboguice.fragment.RoboFragment;
+import roboguice.inject.InjectView;
+import roboguice.util.Strings;
+
+public class PlaceholderFragment extends RoboFragment {
+
+    @InjectView(R.id.location_description_input) private EditText locationDescription;
+    @InjectView(R.id.save_last_location) private Button locationSave;
+    @InjectView(R.id.locations_history_list) private ListView locationsList;
+    @InjectView(android.R.id.empty) private View emptyView;
+
+    @Inject protected Context context;
+    @Inject protected SharedPreferences prefs;
+    @Inject protected Location location;
+    @Inject protected InputMethodManager imm;
+    @Inject protected IntentFactory intentFactory;
 
     public PlaceholderFragment() {
     }
@@ -42,26 +48,23 @@ public class PlaceholderFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        return inflater.inflate(R.layout.fragment_main, container, false);
+    }
 
-        locationDescription = (EditText) rootView.findViewById(R.id.location_description_input);
-        locationSave = (Button) rootView.findViewById(R.id.save_last_location);
-        locationsList = (ListView) rootView.findViewById(R.id.locations_history_list);
-        emptyView = rootView.findViewById(android.R.id.empty);
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         initView();
-
-        return rootView;
     }
 
     private void initView() {
         locationsList.setEmptyView(emptyView);
 
-        locations = new ArrayList<GoodLocation>();
-        locationAdapter = new LocationsAdapter(locations, getActivity());
+        final List<GoodLocation> locations = new ArrayList<GoodLocation>();
+        final LocationsAdapter locationAdapter = new LocationsAdapter(locations, context);
         locationsList.setAdapter(locationAdapter);
 
-        final IntentFactory intentFactory = new IntentFactory(getActivity());
         locationsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -70,25 +73,17 @@ public class PlaceholderFragment extends Fragment {
             }
         });
 
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        final LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-
         locationSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Editable description = locationDescription.getText();
                 final String descriptionString = description != null ? description.toString() : null;
                 final String lastLocation =  prefs.getString(Constants.LAST_LOCATION_DESCRIPTION, null);
-                if (!TextUtils.isEmpty(descriptionString) && !descriptionString.equals(lastLocation)) {
+                if (Strings.notEmpty(descriptionString) && !Strings.equals(descriptionString, lastLocation)) {
                     prefs.edit().putString(Constants.LAST_LOCATION_DESCRIPTION, descriptionString).commit();
 
-                    final Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
-
-                    locations.add(new GoodLocation(descriptionString, location != null ? location.getLatitude() : 0,
-                            location != null ? location.getLongitude() : 0));
+                    locations.add(new GoodLocation(descriptionString, location));
                     locationAdapter.notifyDataSetChanged();
-                    InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(
-                            Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(locationDescription.getWindowToken(), 0);
                     locationDescription.setText(null);
                 }

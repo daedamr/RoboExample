@@ -1,16 +1,15 @@
 package com.example.roboexample.activity;
 
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.example.roboexample.fragment.PlaceholderFragment;
 import com.example.roboexample.R;
 import com.example.roboexample.util.Constants;
 
-public class MainActivity extends ActionBarActivity {
+import roboguice.activity.RoboFragmentActivity;
+
+public class MainActivity extends RoboFragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
