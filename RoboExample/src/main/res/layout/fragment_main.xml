@@ -1,0 +1,84 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        tools:context=".MainActivity$PlaceholderFragment">
+
+        <ImageView
+            android:id="@+id/roboguice_logo"
+            android:layout_height="100dp"
+            android:layout_width="100dp"
+            android:src="@drawable/roboguice"/>
+
+        <TextView
+            android:text="@string/hello_world"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:layout_toRightOf="@+id/roboguice_logo"
+            android:layout_alignBottom="@+id/roboguice_logo"
+            android:layout_alignTop="@+id/roboguice_logo"/>
+
+        <TextView
+            android:id="@+id/locations_title"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="@string/locations_description"
+            android:layout_below="@+id/roboguice_logo"
+            android:padding="10dp"/>
+
+        <EditText
+            android:id="@+id/location_description_input"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/locations_title"
+            android:hint="@string/location_description"/>
+
+        <Button
+            android:id="@+id/save_last_location"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="@string/save_last_location"
+            android:layout_below="@+id/location_description_input"/>
+
+        <TextView
+            android:id="@+id/locations_history_title"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="@string/locations_history"
+            android:layout_below="@+id/save_last_location"
+            android:layout_marginTop="20dp"
+            android:background="#dedede"
+            android:padding="5dp"/>
+
+        <ListView
+            android:id="@+id/locations_history_list"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/locations_history_title"/>
+
+        <TextView
+            android:id="@android:id/empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_history"
+            android:layout_alignTop="@+id/locations_history_list"
+            android:gravity="center"
+            android:layout_marginTop="20dp"/>
+
+    </RelativeLayout>
+
+
+</ScrollView>

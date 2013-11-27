@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">RoboExample</string>
+    <string name="hello_world">Welcome to RoboGuice hello world example</string>
+    <string name="action_settings">Settings</string>
+    <string name="location_description">Location Description</string>
+    <string name="save_last_location">Save</string>
+    <string name="locations_history">Locations History</string>
+    <string name="locations_description">Are you in an interesting place? Write a description and click save. Decsription and location details will be saved for you!</string>
+    <string name="no_history">No history yet. Start entering interesting places to create your list</string>
+
+</resources>
