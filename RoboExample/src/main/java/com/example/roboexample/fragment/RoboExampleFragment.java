@@ -27,16 +27,14 @@ import com.example.roboexample.util.IntentFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlaceholderFragment extends Fragment {
+public class RoboExampleFragment extends Fragment {
 
     private EditText locationDescription;
     private Button locationSave;
     private ListView locationsList;
     private View emptyView;
-    private List<GoodLocation> locations;
-    private LocationsAdapter locationAdapter;
 
-    public PlaceholderFragment() {
+    public RoboExampleFragment() {
     }
 
     @Override
@@ -57,8 +55,8 @@ public class PlaceholderFragment extends Fragment {
     private void initView() {
         locationsList.setEmptyView(emptyView);
 
-        locations = new ArrayList<GoodLocation>();
-        locationAdapter = new LocationsAdapter(locations, getActivity());
+        final List<GoodLocation> locations = new ArrayList<GoodLocation>();
+        final LocationsAdapter locationAdapter = new LocationsAdapter(locations, getActivity());
         locationsList.setAdapter(locationAdapter);
 
         final IntentFactory intentFactory = new IntentFactory(getActivity());
@@ -84,8 +82,7 @@ public class PlaceholderFragment extends Fragment {
 
                     final Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
 
-                    locations.add(new GoodLocation(descriptionString, location != null ? location.getLatitude() : 0,
-                            location != null ? location.getLongitude() : 0));
+                    locations.add(new GoodLocation(descriptionString, location));
                     locationAdapter.notifyDataSetChanged();
                     InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(
                             Context.INPUT_METHOD_SERVICE);
