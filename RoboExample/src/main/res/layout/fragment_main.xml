@@ -74,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/no_history"
-            android:layout_alignTop="@+id/locations_history_list"
+            android:layout_below="@+id/locations_history_title"
             android:gravity="center"
             android:layout_marginTop="20dp"/>
 

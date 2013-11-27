@@ -9,5 +9,7 @@
     <string name="locations_history">Locations History</string>
     <string name="locations_description">Are you in an interesting place? Write a description and click save. Decsription and location details will be saved for you!</string>
     <string name="no_history">No history yet. Start entering interesting places to create your list</string>
+    <string name="latitude">Lat: %s</string>
+    <string name="longitude">Lng: %s</string>
 
 </resources>
