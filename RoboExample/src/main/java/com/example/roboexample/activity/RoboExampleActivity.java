@@ -1,14 +1,14 @@
 package com.example.roboexample.activity;
 
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 
 import com.example.roboexample.fragment.RoboExampleFragment;
 import com.example.roboexample.R;
 import com.example.roboexample.util.Constants;
 
-public class RoboExampleActivity extends ActionBarActivity {
+public class RoboExampleActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
